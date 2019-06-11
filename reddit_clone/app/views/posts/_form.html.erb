@@ -1,0 +1,36 @@
+<% if action == :new %>
+<% action_url = posts_url %>
+<% button_text = "Create New Post" %>
+<% elsif action == :edit %>
+<% action_url = post_url %>
+<% button_text = "Update Post" %>
+<% end %>
+
+
+<form action="<%= action_url %>" method="POST">
+<%= auth_token %>
+<% if action == :edit %>
+  <input type="hidden" name="_hidden" value="PATCH">
+<% end %>
+
+<br>
+<label>Title:
+<input type="text" name="post[title]" value="">
+</label>
+<br>
+<label>URL:
+<input type="text" name="post[url]" value="">
+</label>
+<br>
+<label>Content:</label>
+<br>
+<textarea name="post[content]" cols="20" rows="15">
+<%= post.content %>
+</textarea>
+
+<br>
+<input type="submit" value="<%= button_text %>">
+
+</form>
+
+
