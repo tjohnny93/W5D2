@@ -8,6 +8,8 @@
 <a href="<%= new_post_url %>">Make New Post!</a>
 
 <br>
+
+<h3>Posts List</h3>
 <ul>
 <% @sub.posts.each do |post| %>
   <li><a href="<%= post_url(post) %>"><%= @sub.title %></a></li>
