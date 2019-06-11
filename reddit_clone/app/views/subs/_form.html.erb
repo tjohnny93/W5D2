@@ -1,0 +1,30 @@
+<% if action == :new %>
+<% action_url = subs_url %>
+<% button_text = "Create New Sub" %>
+<% elsif action == :edit %>
+<% action_url = sub_url %>
+<% button_text = "Update Sub" %>
+<% end %>
+
+
+<form action="<%= action_url %>" method="POST">
+<%= auth_token %>
+<% if action == :edit %>
+  <input type="hidden" name="_hidden" value="PATCH">
+<% end %>
+
+<br>
+<label>Title:
+<input type="text" name="sub[title]" value="">
+</label>
+<br>
+<label>Description:</label>
+<br>
+<textarea name="sub[description]" cols="30" rows="10">
+<%= sub.description %>
+</textarea>
+
+<br>
+<input type="submit" value="<%= button_text %>">
+
+</form>
