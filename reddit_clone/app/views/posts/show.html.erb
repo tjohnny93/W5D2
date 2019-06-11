@@ -1,0 +1,39 @@
+
+<h1>Post Detail</h1>
+Created By: <%= @post.author.username %>
+<br>
+<label>Title:</label>
+<%= @post.title %> 
+<br>
+<label>URL:</label>
+<%= @post.url %>
+<br>
+<label>Content:</label>
+<%= @post.content %>
+<br>
+
+
+
+<% if @post.author.id == current_user.id %>
+  <a href="<%= edit_post_url(@post) %>">Edit</a>
+<% end %>
+
+
+<br>
+
+<h4>Subs</h4>
+<ul>
+<% @post.subs.each do |sub| %>
+<li><a href="<%= subs_url(sub) %>"><%= sub.title %></a></li>
+
+<% end %>
+
+</ul>
+
+
+
+<h3>Comments</h3>
+
+<%# @post.comments.each do |comment| %>
+<%#= comment.body %>
+<%# end %>

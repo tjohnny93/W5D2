@@ -2,7 +2,7 @@
 <% action_url = posts_url %>
 <% button_text = "Create New Post" %>
 <% elsif action == :edit %>
-<% action_url = post_url %>
+<% action_url = post_url(post) %>
 <% button_text = "Update Post" %>
 <% end %>
 
@@ -10,16 +10,16 @@
 <form action="<%= action_url %>" method="POST">
 <%= auth_token %>
 <% if action == :edit %>
-  <input type="hidden" name="_hidden" value="PATCH">
+  <input type="hidden" name="_method" value="PATCH" >
 <% end %>
 
 <br>
 <label>Title:
-<input type="text" name="post[title]" value="">
+<input type="text" name="post[title]" value="<%= post.title %>">
 </label>
 <br>
 <label>URL:
-<input type="text" name="post[url]" value="">
+<input type="text" name="post[url]" value="<%= post.url %>">
 </label>
 <br>
 <label>Content:</label>
@@ -31,17 +31,21 @@
 <br>
 <input type="hidden" name="post[sub_ids][]" value="">
 
+
 <% Sub.all.each do |sub| %>
   <label><%= sub.title %>
   <input type="checkbox" 
         value="<%= sub.id %>" 
         name="post[sub_ids][]"
-        <%= "checked" if post.sub_ids.include?(sub.id) %> />
+        <% if post.sub_ids.include?(sub.id) %>
+          <%=  "checked"  %>
+        <% end %>
+        <%#=if post.sub_ids.include?(sub.id) %> />
   </label>
 <% end %>
 
 <br>
-<input type="submit" value="<%= button_text %>">
+<input type="submit" value="<%= button_text %>" >
 
 </form>
 
