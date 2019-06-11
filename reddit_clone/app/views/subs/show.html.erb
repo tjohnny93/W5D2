@@ -10,6 +10,6 @@
 <br>
 <ul>
 <% @sub.posts.each do |post| %>
-  <li><a href="<%= post_url(post) %>"><%= sub.title %></a></li>
+  <li><a href="<%= post_url(post) %>"><%= @sub.title %></a></li>
 <% end %>
 </ul>
