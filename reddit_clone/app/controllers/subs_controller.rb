@@ -1,5 +1,9 @@
 class SubsController < ApplicationController
 
+  before_action :require_login
+
+  before_action :require_moderator, only: [:edit, :update]
+
   def index
     @subs = Sub.all
   end
@@ -37,6 +41,19 @@ class SubsController < ApplicationController
     end
   end
 
+
+  private
+
+  def require_moderator
+    # Check to see current user is a moderator for current sub
+    # Map Subs Array by object id, then check whether array includes current sub id
+    if !current_user.subs.map(&:id).include?(params[:id])
+      flash[:errors] = ["User is not a moderator for current sub!"]
+      redirect_to sub_url(params[:id])
+    end
+    
+  end
+  
   def sub_params
     params.require(:sub).permit(:title, :description)
   end
